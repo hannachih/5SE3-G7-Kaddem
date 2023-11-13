@@ -18,5 +18,10 @@ pipeline {
                          sh 'mvn verify'
                     }
         }
+         stage('Maven Build'){
+                     steps{
+                        sh 'mvn clean install'
+                     }
+                }
     }
 }
