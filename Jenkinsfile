@@ -44,25 +44,33 @@ pipeline {
          stage('Docker Image Build'){
             steps{
                 script{
-                             def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
-                                        def dockerHubUsername = "hannachih"
+                                 def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
 
-                                        // Log in to Docker Hub
-                                        withCredentials([string(credentialsId: 'git_creds', variable: 'docker_Hub')]) {
-                                            sh "docker login -u $dockerHubUsername -p ${docker_Hub}"
-                                        }
+                                            // Print current working directory for debugging
+                                            echo "Current directory: ${pwd()}"
 
-                                        // Build the Docker image
-                                        sh "docker build -t hannachih/$imageName ."
+                                            // Print the Docker build command for debugging
+                                            echo "Docker build command: docker build -t $imageName ."
 
-                                        // Push the Docker image to Docker Hub
-                                        sh "docker push hannachih/$imageName"
+                                            // Build the Docker image
+                                            sh "docker build -t $imageName ."
 
-                                        // Log out from Docker Hub
-                                        sh "docker logout"
+
                 }
             }
          }
+         stage('push image to dockerHub'){
 
+            steps{
+                script{
+                def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
+                    withCredentials([string(credentialsId: 'git_creds', variable: 'docker_Hub')]) {
+                        sh "docker login -u hannachih -p ${docker_Hub}"
+
+                        }
+                        sh "docker image push hannachih/$imageName"
+                }
+            }
+         }
     }
 }
