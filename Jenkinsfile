@@ -44,22 +44,22 @@ pipeline {
          stage('Docker Image Build'){
             steps{
                 script{
-                                 def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
+                             def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
+                                        def dockerHubUsername = "hannachih"
 
-                                            // Print current working directory for debugging
-                                            echo "Current directory: ${pwd()}"
-
-                                            // Print the Docker build command for debugging
-                                            echo "Docker build command: docker build -t $imageName ."
-
-                                            // Build the Docker image
-                                            sh "docker build -t $imageName ."
-                                    withCredentials([string(credentialsId: 'git_creds', variable: 'docker_Hub')]) {
-                                          sh "docker login -u hannachih -p ${docker_Hub}"
-
+                                        // Log in to Docker Hub
+                                        withCredentials([string(credentialsId: 'git_creds', variable: 'docker_Hub')]) {
+                                            sh "docker login -u $dockerHubUsername -p ${docker_Hub}"
                                         }
-                                         sh "docker image push hannachih/$imageName"
 
+                                        // Build the Docker image
+                                        sh "docker build -t hannachih/$imageName ."
+
+                                        // Push the Docker image to Docker Hub
+                                        sh "docker push hannachih/$imageName"
+
+                                        // Log out from Docker Hub
+                                        sh "docker logout"
                 }
             }
          }
