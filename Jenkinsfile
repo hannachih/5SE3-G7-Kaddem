@@ -64,15 +64,11 @@ pipeline {
             steps{
                 script{
                 def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
-                           def dockerHubUsername = "hannachih"
+                    withCredentials([string(credentialsId: 'git_creds', variable: 'docker_Hub')]) {
+                        sh 'docker login -u hannachih -p ${docker_Hub}'
 
-                           // Log in to Docker Hub
-                           withCredentials([string(credentialsId: 'git_creds', variable: 'docker_Hub')]) {
-                               sh "docker login -u $dockerHubUsername -p ${docker_Hub}"
-                           }
-
-                           // Push the Docker image to Docker Hub
-                           sh "docker image push hannachih/$imageName"
+                        }
+                        sh 'docker image push hannachih/$imageName'
                 }
             }
          }
