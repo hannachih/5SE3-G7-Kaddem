@@ -60,13 +60,8 @@ pipeline {
             steps{
                 script{
                                 def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
-
                                // Build the Docker image
                                sh "docker build -t $imageName ."
-
-                               // Tag the Docker image
-                               sh "docker tag $imageName hannachih/$JOB_NAME:v1.$BUILD_ID"
-                               sh "docker tag $imageName hannachih/$JOB_NAME:latest"
                 }
             }
          }

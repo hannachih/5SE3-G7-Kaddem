@@ -1,11 +1,8 @@
-FROM maven as build
-WORKDIR /app
-COPY . .
-RUN mvn clean install
 
-FROM openjdk:11.0
+
+FROM openjdk:11-jre-slim
 WORKDIR /app
-COPY --from=build /app/target/Kadem.jar /app/
+COPY target/Kadem.jar /app/
 
 EXPOSE 8089
 
