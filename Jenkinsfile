@@ -44,9 +44,16 @@ pipeline {
          stage('Docker Image Build'){
             steps{
                 script{
-                                def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
-                               // Build the Docker image
-                               sh 'docker build -t $imageName .'
+                                 def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
+
+                                            // Print current working directory for debugging
+                                            echo "Current directory: ${pwd()}"
+
+                                            // Print the Docker build command for debugging
+                                            echo "Docker build command: docker build -t $imageName ."
+
+                                            // Build the Docker image
+                                            sh "docker build -t $imageName ."
                 }
             }
          }
