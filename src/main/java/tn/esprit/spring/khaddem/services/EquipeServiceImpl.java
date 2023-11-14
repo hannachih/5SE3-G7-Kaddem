@@ -32,8 +32,8 @@ public class EquipeServiceImpl implements IEquipeService{
     @Transactional
     public Equipe addEquipe(Equipe e) {
 
-        equipeRepository.save(e);
-        return e;
+
+        return equipeRepository.save(e);
     }
 
     @Override
