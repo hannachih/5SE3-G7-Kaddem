@@ -50,7 +50,7 @@ pipeline {
                             nexusUrl: '192.168.33.10:8081',
                             nexusVersion: 'nexus3',
                             protocol: 'http',
-                             repository: '5SE3-G7-kadem',
+                             repository: '5SE3-G7-Kadem',
                             version: '4.0'
                 }
             }
