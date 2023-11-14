@@ -26,7 +26,7 @@ pipeline {
          stage('Static code analysis'){
                 steps{
                     script{
-                         withSonarQubeEnv(credentialsId: 'sonartk') {
+                         withSonarQubeEnv(credentialsId: 'tokenkey') {
                          sh 'mvn clean package sonar:sonar '
                         }
                     }
@@ -36,22 +36,7 @@ pipeline {
          stage('Upload file to nexus'){
             steps{
                 script{
-                    nexusArtifactUploader artifacts:
-                    [
-                        [
-                            artifactId: 'khaddem',
-                             classifier: '',
-                             file: 'target/khaddem-4.0.jar',
-                             type: 'jar'
-                        ]
-                   ],
-                            credentialsId: 'nexus-auth',
-                             groupId: 'tn.esprit.spring',
-                            nexusUrl: '192.168.33.10:8081',
-                            nexusVersion: 'nexus3',
-                            protocol: 'http',
-                             repository: 'Kadem',
-                            version: '4.0'
+                    nexusArtifactUploader artifacts: [[artifactId: 'kadem', classifier: '', file: 'target/kadem.jar', type: 'jar']], credentialsId: 'nexus-auth', groupId: 'tn.esprit.spring', nexusUrl: '192.168.33.10:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'Kadem', version: '4.0'
                 }
             }
          }
