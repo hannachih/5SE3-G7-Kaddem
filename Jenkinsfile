@@ -68,7 +68,7 @@ pipeline {
                         sh 'docker login -u hannachih -p ${docker_Hub}'
 
                         }
-                        sh 'docker image push hannachih/$imageName'
+                        sh "docker image push hannachih/$imageName"
                 }
             }
          }
