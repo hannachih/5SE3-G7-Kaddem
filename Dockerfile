@@ -1,7 +1,12 @@
-FROM openjdk:11-jre-slim
+FROM maven as buid
+WORKDIR /app
+COPY . .
+RUN mvn install
 
-COPY target/Kadem.jar /app.jar
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY --from=build /app/target/Kadem.jar /app/
 
 EXPOSE 8089
 
-CMD ["java", "-jar", "/app.jar"]
+CMD ["java", "-jar", "Kadem.jar"]
