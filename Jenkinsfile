@@ -59,10 +59,14 @@ pipeline {
          stage('Docker Image Build'){
             steps{
                 script{
-                    sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID'
-                    sh 'docker image tag $JOB_NAME:v1.$BUILD_ID hannachih/$JOB_NAME:v1.$BUILD_ID'
-                    sh 'docker image tag $JOB_NAME:v1.$BUILD_ID hannachih/$JOB_NAME:latest'
+                   def imageName = "$JOB_NAME:v1.$BUILD_ID"
 
+                               // Build the Docker image
+                               sh "docker build -t $imageName ."
+
+                               // Tag the Docker image
+                               sh "docker tag $imageName hannachih/$JOB_NAME:v1.$BUILD_ID"
+                               sh "docker tag $imageName hannachih/$JOB_NAME:latest"
                 }
             }
          }
