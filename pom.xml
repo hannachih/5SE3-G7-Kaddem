@@ -57,7 +57,7 @@
                     <goals>
                         <goal>repackage</goal>
                     </goals>
-                    <configuration><finalName>Kadem</finalName></configuration>
+                    <configuration><finalName>khaddem-4.0</finalName></configuration>
                 </execution></executions>
                 <configuration>
                     <excludes>
