@@ -54,23 +54,15 @@ pipeline {
 
                                             // Build the Docker image
                                             sh "docker build -t $imageName ."
+                                    withCredentials([string(credentialsId: 'git_creds', variable: 'docker_Hub')]) {
+                                          sh "docker login -u hannachih -p ${docker_Hub}"
 
+                                        }
+                                         sh "docker image push hannachih/$imageName"
 
                 }
             }
          }
-         stage('push image to dockerHub'){
 
-            steps{
-                script{
-                def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
-                    withCredentials([string(credentialsId: 'git_creds', variable: 'docker_Hub')]) {
-                        sh "docker login -u hannachih -p ${docker_Hub}"
-
-                        }
-                        sh "docker image push hannachih/$imageName"
-                }
-            }
-         }
     }
 }
