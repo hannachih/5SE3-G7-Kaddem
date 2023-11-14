@@ -65,7 +65,7 @@ pipeline {
                 script{
                 def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
                     withCredentials([string(credentialsId: 'git_creds', variable: 'docker_Hub')]) {
-                        sh 'docker login -u hannachih -p ${docker_Hub}'
+                        sh "docker login -u hannachih -p ${docker_Hub}"
 
                         }
                         sh "docker image push hannachih/$imageName"
