@@ -59,7 +59,7 @@ pipeline {
          stage('Docker Image Build'){
             steps{
                 script{
-                   def imageName = "$JOB_NAME:v1.$BUILD_ID"
+                                def imageName = "$JOB_NAME:v1.$BUILD_ID".toLowerCase()
 
                                // Build the Docker image
                                sh "docker build -t $imageName ."
