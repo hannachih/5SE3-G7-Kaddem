@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN mvn install
 
-FROM openjdk:11-jre-slim
+FROM openjdk:11.0
 WORKDIR /app
 COPY --from=build /app/target/Kadem.jar /app/
 
