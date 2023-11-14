@@ -52,13 +52,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions><execution>
-                    <id>repackage</id>
-                    <goals>
-                        <goal>repackage</goal>
-                    </goals>
-                    <configuration><finalName>khaddem-4.0</finalName></configuration>
-                </execution></executions>
+
                 <configuration>
                     <excludes>
                         <exclude>
